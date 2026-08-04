@@ -37,6 +37,7 @@ const updateProgress = () => {
   const available = document.documentElement.scrollHeight - innerHeight;
   const value = available > 0 ? Math.min(1, Math.max(0, scrollY / available)) : 0;
   progress.style.transform = `scaleX(${value})`;
+  header.classList.toggle('is-scrolled', scrollY > 12);
 };
 
 addEventListener('scroll', () => {

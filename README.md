@@ -50,6 +50,7 @@ GitHub Pages автоматически обновит сайт через не�
 - `projects/hottour/` — безопасная демонстрационная копия HotTour;
 - `second-look/` — самостоятельный третий проект;
 - `assets/social-preview.jpg` — превью ссылки для мессенджеров;
+- `assets/fonts/` — локальные файлы Onest и текст лицензии;
 - `qa-links.mjs`, `qa-portfolio.mjs` — статическая и браузерная проверки;
 - `AUDIT.md` — итог последнего аудита.
 

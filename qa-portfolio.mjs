@@ -300,6 +300,11 @@ async function portfolioInteractions(viewport) {
       await wait(20);
       result.menu.outsideClickCloses = !document.body.classList.contains('nav-open');
     }
+    scrollTo(0, Math.min(180, document.documentElement.scrollHeight - innerHeight));
+    await wait(50);
+    result.headerScrolled = document.querySelector('.site-header').classList.contains('is-scrolled');
+    scrollTo(0, 0);
+    result.projectLinks = [...document.querySelectorAll('.project-link[href]')].map(link => link.getAttribute('href'));
     return result;
   })()`);
 }
@@ -470,6 +475,8 @@ try {
       if (page.interaction === 'portfolio') {
         if (!interactions.demo.mode.includes('mode-mobile') || interactions.demo.label !== '320 px' || interactions.demo.pressed !== 'true' || interactions.demo.activeCount !== 1) addIssue(page.name, viewport.name, 'responsive-demo', interactions.demo);
         if (viewport.mobile && (!interactions.menu.open || interactions.menu.expanded !== 'true' || !interactions.menu.insideViewport || !interactions.menu.outsideClickCloses)) addIssue(page.name, viewport.name, 'mobile-menu', interactions.menu);
+        const requiredProjectLinks = ['projects/course/index.html', 'projects/hottour/index.html', 'second-look/index.html'];
+        if (!interactions.headerScrolled || !requiredProjectLinks.every(href => interactions.projectLinks.includes(href))) addIssue(page.name, viewport.name, 'portfolio-navigation', interactions);
       } else if (page.interaction === 'second-look') {
         if (interactions.initial.score >= 90 || interactions.initial.issues < 3 || interactions.initial.renderedIssues !== interactions.initial.issues || interactions.initial.highlighted < 1) addIssue(page.name, viewport.name, 'initial-analysis', interactions.initial);
         if (interactions.clean.score < 90 || interactions.clean.issues !== 0 || !interactions.clean.emptyVisible) addIssue(page.name, viewport.name, 'clean-analysis', interactions.clean);

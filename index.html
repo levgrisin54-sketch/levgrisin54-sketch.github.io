@@ -22,10 +22,10 @@
     <title>Лев Гришин — веб-разработчик</title>
     <link rel="canonical" href="https://levgrisin54-sketch.github.io/" />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="preload" href="assets/fonts/Onest-Cyrillic.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="assets/fonts/Onest-Latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" as="image" href="assets/course-cover.jpg" />
+    <link rel="preload" as="image" href="assets/hottour-cover.jpg" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -116,6 +116,7 @@
         <div class="work-heading shell" data-reveal>
           <p class="kicker">Проекты</p>
           <h2>Мои проекты.</h2>
+          <p class="work-intro">Курс, каталог и текстовый инструмент работают прямо в браузере. Кнопки ведут на живые версии.</p>
         </div>
 
         <article class="project project-course">
@@ -125,7 +126,10 @@
               <span>Структура курса · интерфейс · тесты</span>
             </header>
             <div class="project-title-row" data-reveal>
-              <h3>ПОНЯТНЫЙ<br />СТАРТ</h3>
+              <div class="project-heading">
+                <h3>Понятный старт</h3>
+                <ul class="project-tags" aria-label="Технологии проекта"><li>HTML</li><li>CSS</li><li>JavaScript</li><li>LocalStorage</li></ul>
+              </div>
               <p>Сайт курса по партнёрской работе в iGaming. Внутри 80 уроков, задания и прогресс, который сохраняется в браузере.</p>
             </div>
             <div class="project-visual project-window" data-reveal>
@@ -158,12 +162,15 @@
               <span>Каталог · фильтры · форма заявки</span>
             </header>
             <div class="project-title-row" data-reveal>
-              <h3>HOTTOUR</h3>
+              <div class="project-heading">
+                <h3>HotTour</h3>
+                <ul class="project-tags" aria-label="Технологии проекта"><li>HTML</li><li>CSS</li><li>JavaScript</li><li>Избранное</li></ul>
+              </div>
               <p>Сайт туристического бюро Ульяны Аникеевой. В каталоге 15 отелей; варианты можно отфильтровать и добавить в избранное.</p>
             </div>
             <div class="project-visual project-window" data-reveal>
               <div class="window-bar"><span></span><span></span><span></span><b>туризм / широкий экран</b></div>
-              <img src="assets/hottour-cover.jpg" alt="Главная страница сайта туристического бюро Ульяны Аникеевой" width="1440" height="900" loading="lazy" decoding="async" />
+              <img src="assets/hottour-cover.jpg" alt="Главная страница сайта туристического бюро Ульяны Аникеевой" width="1440" height="900" decoding="async" />
             </div>
             <div class="project-details">
               <div class="project-story" data-reveal>
@@ -189,7 +196,10 @@
               <span>JavaScript · работает локально</span>
             </header>
             <div class="project-title-row" data-reveal>
-              <h3>SECOND<br />LOOK</h3>
+              <div class="project-heading">
+                <h3>Second Look</h3>
+                <ul class="project-tags" aria-label="Технологии проекта"><li>JavaScript</li><li>DOM</li><li>RegExp</li><li>Без API</li></ul>
+              </div>
               <p>Небольшая проверка русского текста. Вставляете черновик и сразу видите, какие места стоит перечитать.</p>
             </div>
             <div class="second-look-preview" data-reveal>
