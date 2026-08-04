@@ -10,13 +10,17 @@ const profileDir = fs.mkdtempSync(path.join(os.tmpdir(), 'portfolio-qa-'));
 const port = 9900 + Math.floor(Math.random() * 90);
 const debugUrl = `http://127.0.0.1:${port}`;
 const wait = milliseconds => new Promise(resolve => setTimeout(resolve, milliseconds));
+const publicRoot = process.env.QA_BASE_URL ? new URL('./', process.env.QA_BASE_URL).href : null;
+const pageUrl = (relativePath, search = '') => publicRoot
+  ? `${new URL(relativePath, publicRoot).href}${search}`
+  : `${pathToFileURL(path.join(root, ...relativePath.split('/'))).href}${search}`;
 
 const pages = [
-  { name: 'portfolio', url: pathToFileURL(path.join(root, 'index.html')).href, revealSelector: '[data-reveal]', interaction: 'portfolio' },
-  { name: 'second-look', url: pathToFileURL(path.join(root, 'second-look', 'index.html')).href, revealSelector: null, interaction: 'second-look' },
-  { name: 'course-demo', url: pathToFileURL(path.join(root, 'projects', 'course', 'index.html')).href, revealSelector: null, interaction: 'course', viewportNames: ['desktop', 'mobile320'] },
-  { name: 'course-lesson-demo', url: `${pathToFileURL(path.join(root, 'projects', 'course', 'lesson.html')).href}?module=industry&lesson=ecosystem`, revealSelector: null, interaction: 'course-lesson', viewportNames: ['desktop', 'mobile320'] },
-  { name: 'hottour-demo', url: pathToFileURL(path.join(root, 'projects', 'hottour', 'index.html')).href, revealSelector: '.reveal', interaction: 'hottour', viewportNames: ['desktop', 'mobile320'] }
+  { name: 'portfolio', url: pageUrl('index.html'), revealSelector: '[data-reveal]', interaction: 'portfolio' },
+  { name: 'second-look', url: pageUrl('second-look/index.html'), revealSelector: null, interaction: 'second-look' },
+  { name: 'course-demo', url: pageUrl('projects/course/index.html'), revealSelector: null, interaction: 'course', viewportNames: ['desktop', 'mobile320'] },
+  { name: 'course-lesson-demo', url: pageUrl('projects/course/lesson.html', '?module=industry&lesson=ecosystem'), revealSelector: null, interaction: 'course-lesson', viewportNames: ['desktop', 'mobile320'] },
+  { name: 'hottour-demo', url: pageUrl('projects/hottour/index.html'), revealSelector: '.reveal', interaction: 'hottour', viewportNames: ['desktop', 'mobile320'] }
 ];
 const auditedPages = process.env.QA_PAGE ? pages.filter(page => page.name === process.env.QA_PAGE) : pages;
 const viewports = [
@@ -348,11 +352,15 @@ async function courseInteractions() {
 
 async function courseLessonInteractions() {
   return evaluate(`(() => ({
+    url: location.href,
     title: document.querySelector('#lessonTitle')?.textContent.trim() || '',
     navItems: document.querySelectorAll('#lessonNav a').length,
     theoryCards: document.querySelectorAll('#theoryList article').length,
     nextLesson: document.querySelector('#nextLesson')?.getAttribute('href') || '',
-    backLink: document.querySelector('.portfolio-demo-bar a')?.getAttribute('href') || ''
+    backLink: document.querySelector('.portfolio-demo-bar a')?.getAttribute('href') || '',
+    curriculumItems: window.AFF0_CURRICULUM?.length || 0,
+    lessonDetailGroups: Object.keys(window.AFF0_LESSON_DETAILS || {}).length,
+    loadedScripts: [...document.scripts].map(script => ({ src: script.src, loaded: performance.getEntriesByName(script.src).length > 0 }))
   }))()`);
 }
 
