@@ -12,3 +12,7 @@
 - `russia-coast.jpg` — https://images.unsplash.com/photo-1500530855697-b586d89ba3ee
 - `dubai.jpg` — https://images.unsplash.com/photo-1512453979798-5ea266f8880c
 - `desert.jpg` — https://images.unsplash.com/photo-1509316785289-025f5b846b35
+
+## Шрифт
+
+[Onest](https://fonts.google.com/specimen/Onest) хранится локально в `media/fonts/` и распространяется по SIL Open Font License 1.1. Копия лицензии находится в `media/fonts/OFL-Onest.txt`.
