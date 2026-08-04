@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Second Look — локальная проверка русского интерфейсного текста на пустые формулы, канцелярит и перегруженные предложения." />
+    <meta name="theme-color" content="#d9ff67" />
+    <meta name="color-scheme" content="light" />
+    <title>Second Look — проверка текста для интерфейса</title>
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#analyzer">Перейти к проверке</a>
+    <header class="tool-header shell">
+      <a class="back-link" href="../index.html"><span aria-hidden="true">←</span> Портфолио</a>
+      <a class="tool-logo" href="#top"><b>SECOND</b><b>LOOK</b></a>
+      <span class="local-badge"><i aria-hidden="true"></i> работает локально</span>
+    </header>
+
+    <main id="top">
+      <section class="tool-hero shell">
+        <p class="eyebrow">Проверка текста в браузере</p>
+        <h1>Проверьте текст<br /><span>перед публикацией.</span></h1>
+        <div class="hero-note">
+          <p>Вставьте текст для лендинга или интерфейса. Проверка подсветит длинные предложения, канцелярит, повторы и общие слова.</p>
+          <span>Обработка только в этом окне</span>
+        </div>
+      </section>
+
+      <section class="analyzer shell" id="analyzer">
+        <div class="editor-panel">
+          <div class="panel-heading">
+            <div><span>01</span><h2>Черновик</h2></div>
+            <span id="character-count">0 знаков</span>
+          </div>
+          <label class="sr-only" for="copy-input">Текст для проверки</label>
+          <textarea id="copy-input" spellcheck="true">С помощью платформы можно управлять проектами и задачами в одном окне. В рамках раздела осуществляется настройка уведомлений. Для изменения параметров необходимо произвести нажатие на кнопку!!!</textarea>
+          <div class="editor-actions">
+            <div class="samples" role="group" aria-label="Примеры текста">
+              <button type="button" data-sample="landing">Сложный текст</button>
+              <button type="button" data-sample="interface">Интерфейс</button>
+              <button type="button" data-sample="clean">Чистый пример</button>
+            </div>
+            <button class="analyze-button" id="analyze-button" type="button">Проверить ещё раз <span aria-hidden="true">↗</span></button>
+          </div>
+        </div>
+
+        <aside class="score-panel" aria-live="polite">
+          <div class="panel-heading panel-heading-light"><div><span>02</span><h2>Оценка</h2></div><span id="score-label">Нужна редактура</span></div>
+          <div class="score-ring" id="score-ring" style="--score: 42deg"><b id="score-value">42</b><span>/100</span></div>
+          <dl class="score-stats">
+            <div><dt id="word-count">0</dt><dd>слов</dd></div>
+            <div><dt id="sentence-count">0</dt><dd>предложений</dd></div>
+            <div><dt id="issue-count">0</dt><dd>сигналов</dd></div>
+          </dl>
+          <p class="score-note" id="score-note">Автоматическая проверка не оценивает факты и тон. Перечитайте текст перед публикацией.</p>
+        </aside>
+
+        <div class="review-panel">
+          <div class="panel-heading"><div><span>03</span><h2>Что перечитать</h2></div><button class="copy-button" id="copy-button" type="button">Скопировать текст</button></div>
+          <div class="highlighted-copy" id="highlighted-copy"></div>
+          <ol class="issue-list" id="issue-list"></ol>
+          <p class="empty-state" id="empty-state" hidden>Формальных замечаний нет. Проверьте факты, тон и уместность текста.</p>
+        </div>
+      </section>
+
+      <section class="rules shell">
+        <div class="rules-heading"><p class="eyebrow">Прозрачные правила</p><h2>Что именно проверяется</h2></div>
+        <ol>
+          <li><span>01</span><b>Оценки без фактов</b><p>Слова «лучший» и «быстрый» нужно подтверждать сроком, числом или результатом.</p></li>
+          <li><span>02</span><b>Канцелярит</b><p>Проверка находит обороты, которые можно заменить простым глаголом.</p></li>
+          <li><span>03</span><b>Непонятные термины</b><p>Английские слова стоит объяснить, если читатель может их не знать.</p></li>
+          <li><span>04</span><b>Длинные предложения</b><p>Фразы длиннее 24 слов стоит перечитать и при необходимости разделить.</p></li>
+          <li><span>05</span><b>Лишние знаки</b><p>Несколько восклицательных знаков и многоточий редко делают текст понятнее.</p></li>
+          <li><span>06</span><b>Повтор начала</b><p>Одинаковое начало соседних предложений может сделать текст монотонным.</p></li>
+        </ol>
+      </section>
+    </main>
+
+    <footer class="tool-footer shell">
+      <p>Second Look · 2026</p>
+      <p>Проверка выполняется в браузере.<br />Текст не отправляется на сервер.</p>
+      <a href="../index.html#work">Вернуться к кейсам <span aria-hidden="true">↗</span></a>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="app.js"></script>
+  </body>
+</html>

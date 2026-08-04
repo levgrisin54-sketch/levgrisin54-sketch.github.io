@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /projects/
+
+Sitemap: https://levgrisin54-sketch.github.io/sitemap.xml

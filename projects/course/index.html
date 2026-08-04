@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Понятный курс для новичка: как устроена сфера iGaming, чем занимается партнёрский менеджер и как безопасно начать работу."
+    />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>iGaming: понятный старт — курс по работе с партнёрами</title>
+    <link rel="preload" href="assets/fonts/InterVariable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="beginner-theme.css" />
+    <link rel="stylesheet" href="course-premium.css" />
+    <link rel="stylesheet" href="dark-system.css" />
+    <link rel="stylesheet" href="../demo-shell.css" />
+  </head>
+  <body class="course-page">
+    <div class="portfolio-demo-bar"><a href="../../index.html#work">← Портфолио Льва Гришина</a><span>Демо курса. Прогресс останется в этом браузере.</span></div>
+    <a class="skip-link" href="#start">Перейти к содержанию</a>
+    <div class="noise" aria-hidden="true"></div>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="#start" aria-label="iGaming: понятный старт — на главную">
+          <span class="brand-mark">ИГ</span>
+          <span>ПОНЯТНЫЙ <span class="muted">СТАРТ</span></span>
+        </a>
+
+        <div class="profile-card">
+          <span class="eyebrow">ТВОЙ ПРОГРЕСС</span>
+          <strong>С нуля → к первому рабочему проекту</strong>
+          <p>онлайн-игры · партнёрства · 16 недель</p>
+          <div class="progress-track"><span id="progressBar"></span></div>
+          <span class="progress-label"><b id="progressPercent">0</b>% пройдено</span>
+        </div>
+
+        <section class="route-progress" aria-label="Твой маршрут">
+          <div class="route-progress-head">
+            <span class="eyebrow">ТВОЙ МАРШРУТ</span>
+            <b id="routeProgressCount">0/8</b>
+          </div>
+          <div class="route-progress-list" id="routeProgressList"></div>
+        </section>
+
+        <p class="side-nav-label">НА СТРАНИЦЕ</p>
+        <nav class="side-nav" aria-label="Навигация по курсу">
+          <a class="active" href="#start">01 <span>Старт</span></a>
+          <a href="#roadmap">02 <span>Маршрут</span></a>
+          <a href="#syllabus">03 <span>Уроки</span></a>
+          <a href="#program">04 <span>Навыки</span></a>
+          <a href="#lab">05 <span>Кейсы</span></a>
+          <a href="#ai">06 <span>Инструменты</span></a>
+        </nav>
+
+        <div class="sidebar-foot">
+          <span class="status-dot"></span> работает без аккаунта
+          <button class="text-button" id="resetProgress">сбросить прогресс</button>
+        </div>
+      </aside>
+
+      <main>
+        <header class="topbar">
+          <span class="crumb"><a href="#start">Главная</a><i>→</i><b>Курс для новичка</b></span>
+          <div class="course-top-meta">
+            <span>80 уроков · 18 практик</span>
+            <span class="course-top-progress"><b id="topProgressPercent">0%</b> пройдено</span>
+          </div>
+        </header>
+
+        <section class="hero" id="start">
+          <div class="hero-copy">
+            <p class="eyebrow">iGAMING — ЭТО СФЕРА ОНЛАЙН-ИГР НА ДЕНЬГИ</p>
+            <h1>Разберись спокойно.<br /><span>Шаг за шагом.</span></h1>
+            <div class="course-facts" aria-label="Ключевые параметры курса">
+              <span><b>80</b> уроков</span>
+              <span><b>18</b> практических задач</span>
+              <span><b>16</b> недель в удобном темпе</span>
+            </div>
+            <p class="hero-map-title">Маршрут курса</p>
+            <div class="hero-map" aria-label="Четыре этапа курса">
+              <span><b>01</b><strong>Понять сферу</strong></span>
+              <i>→</i>
+              <span><b>02</b><strong>Договориться</strong></span>
+              <i>→</i>
+              <span><b>03</b><strong>Запустить</strong></span>
+              <i>→</i>
+              <span><b>04</b><strong>Улучшить</strong></span>
+            </div>
+            <p class="lead">Курс объясняет, как устроена сфера, кто такие игровые компании и партнёры, откуда приходят пользователи и чем занимается менеджер по работе с партнёрами. Новые слова появляются только тогда, когда без них уже нельзя двигаться дальше, и сразу объясняются простым языком.</p>
+            <div class="hero-actions">
+              <a class="button button-primary" id="heroPrimaryAction" href="lesson.html?module=industry&amp;lesson=ecosystem">Начать первый урок <span>→</span></a>
+              <a class="button button-ghost" href="#roadmap">Посмотреть маршрут</a>
+            </div>
+          </div>
+          <aside class="hero-preview" aria-label="Простой пример пути человека от рекламы до первого пополнения">
+            <div class="hero-preview-head"><span>Первый понятный пример</span><b>Урок 01</b></div>
+            <ol class="hero-preview-path">
+              <li><span>01</span><div><b>Увидел материал</b><small>знакомство с продуктом</small></div></li>
+              <li><span>02</span><div><b>Перешёл по ссылке</b><small>переход отмечен системой</small></div></li>
+              <li><span>03</span><div><b>Зарегистрировался</b><small>создан игровой счёт</small></div></li>
+              <li><span>04</span><div><b>Выполнил условие</b><small>может возникнуть выплата</small></div></li>
+            </ol>
+            <div class="hero-preview-note"><i aria-hidden="true">i</i><p>Новые слова объясняются <strong>до того</strong>, как понадобятся в задании.</p></div>
+            <a href="lesson.html?module=industry&amp;lesson=ecosystem">Посмотреть структуру урока <span>→</span></a>
+          </aside>
+        </section>
+
+        <section class="diagnosis-strip" aria-label="Принципы курса">
+          <div><span>01</span><b>Понять людей и компании</b><p>Кто создаёт продукт, кто приводит аудиторию и за какое действие возникает выплата.</p></div>
+          <div><span>02</span><b>Увидеть весь путь</b><p>От первого показа рекламы до регистрации, проверки и первого пополнения счёта.</p></div>
+          <div><span>03</span><b>Работать ответственно</b><p>Запускать только понятную и разрешённую рекламу, сохраняя подтверждения решений.</p></div>
+        </section>
+
+        <section class="section" id="roadmap">
+          <div class="section-heading">
+            <div><p class="eyebrow">16 НЕДЕЛЬ · 4–6 ЧАСОВ В НЕДЕЛЮ</p><h2>Путь от общего к профессии</h2></div>
+            <p class="section-note">Сначала ты поймёшь саму сферу и путь пользователя. Затем научишься находить партнёров, считать простые сделки, проверять ссылки, проводить запуск и читать результаты.</p>
+          </div>
+          <div class="roadmap">
+            <article class="route-card current">
+              <span class="route-no">01</span><span class="route-week">недели 0–1</span>
+              <h3>Сфера<br />и люди</h3>
+              <p>Кто создаёт продукт, кто приводит аудиторию и какую роль играет партнёрский менеджер.</p>
+              <button class="complete-toggle" data-key="industry">Отметить</button>
+            </article>
+            <article class="route-card">
+              <span class="route-no">02</span><span class="route-week">недели 2–3</span>
+              <h3>Поиск<br />партнёров</h3>
+              <p>Где искать площадки, как проверять аудиторию и как написать первое сообщение.</p>
+              <button class="complete-toggle" data-key="recruitment">Отметить</button>
+            </article>
+            <article class="route-card">
+              <span class="route-no">03</span><span class="route-week">недели 4–5</span>
+              <h3>Оплата<br />и договор</h3>
+              <p>За что получает деньги партнёр, как посчитать стоимость и что проверить в условиях.</p>
+              <button class="complete-toggle" data-key="commercials">Отметить</button>
+            </article>
+            <article class="route-card">
+              <span class="route-no">04</span><span class="route-week">недели 6–7</span>
+              <h3>Ссылка<br />и учёт</h3>
+              <p>Как система запоминает переход, какие действия считает и почему цифры расходятся.</p>
+              <button class="complete-toggle" data-key="tracking">Отметить</button>
+            </article>
+            <article class="route-card">
+              <span class="route-no">05</span><span class="route-week">недели 8–9</span>
+              <h3>Подготовка<br />запуска</h3>
+              <p>Документы, ограничения, рекламные материалы, проверка ссылки и первый день.</p>
+              <button class="complete-toggle" data-key="launch">Отметить</button>
+            </article>
+            <article class="route-card">
+              <span class="route-no">06</span><span class="route-week">недели 10–11</span>
+              <h3>Результаты<br />и улучшения</h3>
+              <p>Основные показатели, слабое место в пути и проверка одного изменения за раз.</p>
+              <button class="complete-toggle" data-key="optimization">Отметить</button>
+            </article>
+            <article class="route-card">
+              <span class="route-no">07</span><span class="route-week">недели 12–13</span>
+              <h3>Правила<br />и безопасность</h3>
+              <p>Реклама для взрослых, честные условия, защита людей и действия при проблеме.</p>
+              <button class="complete-toggle" data-key="compliance">Отметить</button>
+            </article>
+            <article class="route-card capstone">
+              <span class="route-no">08</span><span class="route-week">недели 14–16</span>
+              <h3>Ежедневная<br />работа</h3>
+              <p>Заметки, выплаты, споры, встречи и итоговый учебный запуск для портфолио.</p>
+              <button class="complete-toggle" data-key="operations">Отметить</button>
+            </article>
+          </div>
+        </section>
+
+        <section class="section syllabus-section" id="syllabus">
+          <div class="section-heading">
+            <div><p class="eyebrow">8 МОДУЛЕЙ · 80 УРОКОВ · 18 ПРАКТИЧЕСКИХ ЗАДАЧ</p><h2>Учебный кабинет</h2></div>
+            <p class="section-note">В каждом уроке: новые слова с объяснением, четыре смысловых блока, пример из работы, небольшая практика, частые ошибки и вопрос для самопроверки.</p>
+          </div>
+          <div class="study-rhythm" aria-label="Ритм обучения">
+            <div><span>ШАГ 1 · 30 МИН</span><b>Сначала прочитай урок</b><small>Разбери понятия, схему и рабочий пример.</small></div>
+            <div><span>ШАГ 2 · 20 МИН</span><b>Проверь своё понимание</b><small>Ответь себе, что уже ясно, а что нужно уточнить.</small></div>
+            <div><span>ШАГ 3 · 45 МИН</span><b>Сделай небольшую практику</b><small>Составь таблицу, письмо, расчёт или короткий список.</small></div>
+            <div><span>ШАГ 4 · 10 МИН</span><b>Зафиксируй результат</b><small>Запиши вывод и следующий шаг, чтобы к нему вернуться.</small></div>
+          </div>
+          <div class="syllabus-grid" id="syllabusGrid"></div>
+          <div class="triage-method">
+            <div class="triage-copy">
+              <p class="eyebrow">ОСНОВНОЙ ПОРЯДОК РАБОТЫ</p>
+              <h3>Понять, проверить, сделать</h3>
+            </div>
+            <div class="triage-flow" aria-label="Алгоритм принятия решения">
+              <span><i>01</i>Что случилось</span><b>→</b>
+              <span><i>02</i>Что это значит</span><b>→</b>
+              <span><i>03</i>Что проверить</span><b>→</b>
+              <span><i>04</i>Что сделать</span><b>→</b>
+              <span><i>05</i>Когда вернуться</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="section program-section" id="program">
+          <div class="section-heading">
+            <div><p class="eyebrow">ЧЕМУ ТЫ НАУЧИШЬСЯ</p><h2>Первые рабочие навыки</h2></div>
+            <p class="section-note">Все компании, люди и цифры в примерах вымышлены. В настоящей работе правила всегда уточняют у руководителя и специалиста по требованиям.</p>
+          </div>
+          <div class="course-grid">
+            <article class="course-card featured">
+              <div class="course-meta"><span>НАВЫК 01</span><b>ПОИСК</b></div>
+              <h3>Найти подходящего партнёра</h3>
+              <p>Опишешь нужную аудиторию, найдёшь площадки, проверишь владельца, источник посетителей и примеры размещений.</p>
+              <ul><li>Понимаем, кого именно ищем и почему.</li><li>Проверяем, где находится нужная аудитория.</li><li>Собираем факты, подтверждающие качество площадки.</li></ul>
+              <div class="diagram" aria-label="Порядок работы: поиск, проверка, контакт"><em>Порядок работы</em><span>поиск</span><b>→</b><span>проверка</span><b>→</b><span>контакт</span></div>
+              <button class="open-lab" data-lab="partner-scorecard">Открыть кейс →</button>
+            </article>
+
+            <article class="course-card">
+              <div class="course-meta"><span>НАВЫК 02</span><b>РАСЧЁТ</b></div>
+              <h3>Понять стоимость сделки</h3>
+              <p>Разберёшь способы оплаты, покажешь формулу и посчитаешь осторожный, обычный и хороший вариант результата.</p>
+              <ul><li>Фиксируем, за какое действие начисляется выплата.</li><li>Определяем допустимый предел расходов.</li><li>Отмечаем условия, которые нужно согласовать.</li></ul>
+              <div class="diagram" aria-label="Порядок работы: условия, расчёт, решение"><em>Порядок работы</em><span>условия</span><b>→</b><span>расчёт</span><b>→</b><span>решение</span></div>
+              <button class="open-lab" data-lab="ngr-math">Открыть кейс →</button>
+            </article>
+
+            <article class="course-card">
+              <div class="course-meta"><span>НАВЫК 03</span><b>ССЫЛКА</b></div>
+              <h3>Проверить путь пользователя</h3>
+              <p>Соберёшь партнёрскую ссылку, сделаешь тестовый переход и поймёшь, где искать причину разных цифр.</p>
+              <ul><li>Проверяем переход по партнёрской ссылке.</li><li>Отслеживаем регистрацию и первое пополнение.</li><li>Сверяем данные в двух отчётах.</li></ul>
+              <div class="diagram" aria-label="Порядок работы: переход, действие, отчёт"><em>Порядок работы</em><span>переход</span><b>→</b><span>действие</span><b>→</b><span>отчёт</span></div>
+              <button class="open-lab" data-lab="tracking-url">Открыть кейс →</button>
+            </article>
+
+            <article class="course-card">
+              <div class="course-meta"><span>НАВЫК 04</span><b>ЗАПУСК</b></div>
+              <h3>Не пропустить важное перед публикацией</h3>
+              <p>Соберёшь документы, ограничения, материалы, проверку ссылки и ответственных в один контрольный список.</p>
+              <ul><li>Отмечаем, что уже готово к запуску.</li><li>Проверяем, какие пункты ещё требуют внимания.</li><li>Назначаем человека, который принимает решение.</li></ul>
+              <div class="diagram pipeline" aria-label="Порядок работы: подготовка, проверка, запуск"><em>Порядок работы</em><span>подготовка</span><b>→</b><span>проверка</span><b>→</b><span>запуск</span></div>
+              <button class="open-lab" data-lab="launch-checklist">Открыть кейс →</button>
+            </article>
+
+            <article class="course-card featured">
+              <div class="course-meta"><span>НАВЫК 05</span><b>РЕЗУЛЬТАТ</b></div>
+              <h3>Найти слабое место</h3>
+              <p>Сравнишь этапы пути, увидишь, где теряются люди, и предложишь одно понятное изменение.</p>
+              <ul><li>Сравниваем одинаковые по длительности периоды.</li><li>Ищем причину изменения, а не виноватого.</li><li>Меняем за раз только один элемент.</li></ul>
+              <div class="diagram metric-flow" aria-label="Порядок работы: цифры, причина, проверка"><em>Порядок работы</em><span>цифры</span><b>→</b><span>причина</span><b>→</b><span>проверка</span></div>
+              <button class="open-lab" data-lab="funnel-math">Открыть кейс →</button>
+            </article>
+
+            <article class="course-card support-card">
+              <div class="course-meta"><span>ОБЯЗАТЕЛЬНЫЙ НАВЫК</span><b>БЕЗОПАСНОСТЬ</b></div>
+              <h3>Остановить сомнительную рекламу</h3>
+              <p>Научишься замечать обещания выигрыша, обращение к несовершеннолетним, скрытые условия и подозрительный поток посетителей.</p>
+              <div class="mini-topics">
+                <button class="mini-topic open-lab" data-lab="ad-review"><b>18+</b><span>Реклама</span><small>Проверяем обещания, аудиторию и условия.</small></button>
+                <button class="mini-topic open-lab" data-lab="suppression"><b>⊘</b><span>Помощь</span><small>Учитываем отказ от игры и остановку сообщений.</small></button>
+                <button class="mini-topic open-lab" data-lab="promo-brief"><b>◆</b><span>Акция</span><small>Уточняем участников, ограничения и срок.</small></button>
+                <button class="mini-topic open-lab" data-lab="fraud-signal"><b>!</b><span>Риск</span><small>Сверяем необычные данные и подтверждающие факты.</small></button>
+                <button class="mini-topic open-lab" data-lab="discrepancy-triage"><b>≠</b><span>Сверка</span><small>Сопоставляем номера, состояния и журналы.</small></button>
+              </div>
+            </article>
+
+            <article class="course-card automation-card">
+              <div class="course-meta"><span>ИТОГОВЫЙ НАВЫК</span><b>СИСТЕМНАЯ РАБОТА</b></div>
+              <h3>Вести партнёра без потери договорённостей</h3>
+              <p>Настроишь записи, следующие шаги, сверку выплат и спокойное решение спорных вопросов. Завершишь курс учебным запуском.</p>
+                <ul><li>Ведём заметки и назначаем ответственных.</li><li>Регулярно сверяем начисления и выплаты.</li><li>Собираем учебный проект для портфолио.</li></ul>
+              <div class="diagram" aria-label="Порядок работы: неделя, месяц, итог"><em>Порядок работы</em><span>неделя</span><b>→</b><span>месяц</span><b>→</b><span>итог</span></div>
+              <button class="open-lab" data-lab="capstone-plan">Открыть итоговый кейс →</button>
+            </article>
+          </div>
+        </section>
+
+        <section class="section lab-section" id="lab">
+          <div class="section-heading">
+            <div><p class="eyebrow">18 ЗАДАЧ · МОЖНО ОШИБАТЬСЯ И ПРОБОВАТЬ СНОВА</p><h2>Практика с подсказкой</h2></div>
+            <p class="section-note">Проверка ищет обязательные части ответа и показывает, чего не хватает. В настоящей компании окончательное решение всегда подтверждает ответственный сотрудник.</p>
+          </div>
+          <div class="lab-layout">
+            <aside class="lab-catalog" aria-label="Каталог практических кейсов">
+              <div class="lab-catalog-head"><span>Практические кейсы</span><b id="labProgressCount">0 / 18</b></div>
+              <div class="lab-sidebar" id="labNav" aria-label="Выбор практического кейса"></div>
+            </aside>
+            <article class="lab-panel">
+              <div class="lab-top"><span id="labTag">МОДУЛЬ 1 · КТО ЕСТЬ КТО</span><span><i id="labPosition">01 / 18</i><b id="labLevel">★☆☆</b></span></div>
+              <h3 id="labTitle"></h3>
+              <p id="labStory" class="lab-story"></p>
+              <div class="lab-objective"><span>ЗАДАЧА</span><p id="labTask"></p></div>
+              <details class="hint-box"><summary>Нужна подсказка? <span>+</span></summary><p id="labHint"></p></details>
+              <label class="editor-label" for="answer">Твой ответ <span><i id="answerStatus">Черновик сохраняется</i><b id="answerKind"></b></span></label>
+              <textarea id="answer" spellcheck="false" autocomplete="off"></textarea>
+              <div class="lab-actions">
+                <button class="button button-primary" id="checkAnswer">Проверить ответ <span>↵</span></button>
+                <button class="text-button" id="showSolution" disabled>Разбор после попытки</button>
+              </div>
+              <div class="feedback" id="feedback" aria-live="polite"></div>
+              <div class="solution" id="solution"></div>
+              <div class="checker-note"><b>Важно:</b> это учебный тренажёр. Не вставляй сюда реальные имена пользователей, договоры, пароли, внутренние отчёты или другие закрытые сведения.</div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section ai-section" id="ai">
+          <div class="ai-terminal">
+            <p class="eyebrow">РАБОЧИЕ ИНСТРУМЕНТЫ</p>
+            <h2>Простые формы<br />вместо лишней сложности.</h2>
+            <p>Для курса достаточно таблицы, карточки партнёра, контрольного списка и заметки после встречи. Нейросеть не обязательна: сначала научись видеть факты, считать вручную и задавать точные вопросы.</p>
+            <div class="prompt-window">
+              <div><i>✓</i> Ситуация: что произошло. Факты: какие цифры и документы есть. Вопрос: что нужно решить. Следующий шаг: кто делает и к какой дате.</div>
+              <button
+                class="copy-prompt"
+                data-prompt="Ситуация: что произошло. Факты: какие цифры и документы есть. Вопрос: что нужно решить. Следующий шаг: кто делает и к какой дате."
+              >скопировать шаблон</button>
+            </div>
+          </div>
+          <div class="ai-rules">
+            <article><span>01</span><h3>Таблица</h3><p>Храни список партнёров, даты, этапы общения и следующий шаг в одном месте.</p></article>
+            <article><span>02</span><h3>Калькулятор</h3><p>Показывай формулу рядом с результатом, чтобы другой человек мог её проверить.</p></article>
+            <article><span>03</span><h3>Контрольный список</h3><p>Перед запуском проходи один и тот же порядок: условия, материалы, ссылка, ответственные.</p></article>
+            <article><span>04</span><h3>Словарь</h3><p>Записывай новое слово, простое объяснение и пример только после того, как оно встретилось в уроке.</p></article>
+          </div>
+        </section>
+
+        <section class="capstone-banner" aria-labelledby="capstoneTitle">
+          <div>
+            <p class="eyebrow">ИТОГОВЫЙ ПРОЕКТ · ПОРТФОЛИО</p>
+            <h2 id="capstoneTitle">Учебный запуск партнёра</h2>
+            <p>Выбери вымышленную площадку, объясни, почему её аудитория подходит продукту, предложи способ оплаты, подготовь ссылку и материалы, проведи проверку и составь первый недельный отчёт.</p>
+            <span class="capstone-progress" id="capstoneProgress">0 из 6 пунктов готово</span>
+          </div>
+          <div class="capstone-checks">
+            <label><input type="checkbox" data-capstone-item="partner" /><span>Есть описание партнёра и его аудитории.</span></label>
+            <label><input type="checkbox" data-capstone-item="deal" /><span>Условия сделки записаны, а расчёт понятен.</span></label>
+            <label><input type="checkbox" data-capstone-item="tracking" /><span>Партнёрская ссылка собрана и проверена.</span></label>
+            <label><input type="checkbox" data-capstone-item="materials" /><span>Материалы подготовлены по контрольному списку.</span></label>
+            <label><input type="checkbox" data-capstone-item="report" /><span>За первую неделю составлен отчёт и выбран один шаг улучшения.</span></label>
+            <label><input type="checkbox" data-capstone-item="payment" /><span>Выплата сверена, а основные выводы записаны.</span></label>
+          </div>
+        </section>
+
+        <footer>iGaming: понятный старт · локальный учебный курс · <span>сначала понять, затем проверить и только потом действовать</span></footer>
+      </main>
+    </div>
+
+    <dialog class="course-dialog" id="courseDialog" aria-labelledby="dialogTitle" aria-describedby="dialogDescription">
+      <button class="dialog-close" id="dialogClose" type="button" aria-label="Закрыть">×</button>
+      <div id="courseDialogContent"></div>
+    </dialog>
+    <script src="course-data.js"></script>
+    <script src="lesson-data.js"></script>
+    <script src="beginner-data.js"></script>
+    <script src="beginner-path.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

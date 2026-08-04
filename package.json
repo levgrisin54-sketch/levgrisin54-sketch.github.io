@@ -1,0 +1,9 @@
+{
+  "name": "levgrisin-portfolio",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "qa": "node qa-links.mjs && node qa-portfolio.mjs",
+    "qa:links": "node qa-links.mjs"
+  }
+}
