@@ -346,27 +346,57 @@ async function secondLookInteractions() {
 }
 
 async function courseInteractions() {
-  return evaluate(`(() => ({
-    title: document.querySelector('h1')?.textContent.trim() || '',
-    modules: document.querySelector('#syllabusGrid')?.children.length || 0,
-    lessons: document.querySelectorAll('#syllabusGrid a[href*="lesson.html"]').length,
-    firstLesson: document.querySelector('#heroPrimaryAction')?.getAttribute('href') || '',
-    backLink: document.querySelector('.portfolio-demo-bar a')?.getAttribute('href') || ''
-  }))()`);
+  return evaluate(`(async () => {
+    const wait = milliseconds => new Promise(resolve => setTimeout(resolve, milliseconds));
+    const firstModule = document.querySelector('.syllabus-card');
+    firstModule?.click();
+    await wait(40);
+    const dialog = document.querySelector('#courseDialog');
+    const moduleDialog = {
+      open: Boolean(dialog?.open),
+      title: document.querySelector('#dialogTitle')?.textContent.trim() || '',
+      lessonLinks: document.querySelectorAll('.dialog-lesson-link[href*="lesson.html"]').length,
+      firstLesson: document.querySelector('.dialog-lesson-link')?.getAttribute('href') || ''
+    };
+    document.querySelector('#dialogClose')?.click();
+    await wait(300);
+    moduleDialog.closed = !dialog?.open;
+    return {
+      title: document.querySelector('h1')?.textContent.trim() || '',
+      modules: document.querySelector('#syllabusGrid')?.children.length || 0,
+      firstLesson: document.querySelector('#heroPrimaryAction')?.getAttribute('href') || '',
+      backLink: document.querySelector('.portfolio-demo-bar a')?.getAttribute('href') || '',
+      moduleDialog
+    };
+  })()`);
 }
 
 async function courseLessonInteractions() {
-  return evaluate(`(() => ({
-    url: location.href,
-    title: document.querySelector('#lessonTitle')?.textContent.trim() || '',
-    navItems: document.querySelectorAll('#lessonNav a').length,
-    theoryCards: document.querySelectorAll('#theoryList article').length,
-    nextLesson: document.querySelector('#nextLesson')?.getAttribute('href') || '',
-    backLink: document.querySelector('.portfolio-demo-bar a')?.getAttribute('href') || '',
-    curriculumItems: window.AFF0_CURRICULUM?.length || 0,
-    lessonDetailGroups: Object.keys(window.AFF0_LESSON_DETAILS || {}).length,
-    loadedScripts: [...document.scripts].map(script => ({ src: script.src, loaded: performance.getEntriesByName(script.src).length > 0 }))
-  }))()`);
+  return evaluate(`(() => {
+    const workspace = document.querySelector('#practiceWorkspace');
+    workspace.value = 'Тестовый черновик урока';
+    workspace.dispatchEvent(new Event('input', { bubbles: true }));
+    document.querySelector('#startCheckpoint')?.click();
+    const completionButton = document.querySelector('#completeLessonBottom');
+    if (!completionButton?.classList.contains('done')) completionButton?.click();
+    return {
+      url: location.href,
+      title: document.querySelector('#lessonTitle')?.textContent.trim() || '',
+      navItems: document.querySelectorAll('#lessonNav a').length,
+      theoryCards: document.querySelectorAll('#theoryList article').length,
+      nextLesson: document.querySelector('#nextLesson')?.getAttribute('href') || '',
+      backLink: document.querySelector('.portfolio-demo-bar a')?.getAttribute('href') || '',
+      curriculumItems: window.AFF0_CURRICULUM?.length || 0,
+      lessonDetailGroups: Object.keys(window.AFF0_LESSON_DETAILS || {}).length,
+      checkpointOpen: !document.querySelector('#checkpointBody')?.hidden,
+      draftSaved: [...Array(localStorage.length).keys()].some(index => {
+        const key = localStorage.key(index);
+        return key?.startsWith('aff0-practice-draft:') && localStorage.getItem(key) === 'Тестовый черновик урока';
+      }),
+      lessonCompleted: document.querySelector('#completeLessonBottom')?.classList.contains('done') || false,
+      loadedScripts: [...document.scripts].map(script => ({ src: script.src, loaded: performance.getEntriesByName(script.src).length > 0 }))
+    };
+  })()`);
 }
 
 async function hottourInteractions() {
@@ -483,9 +513,10 @@ try {
         if (interactions.bureaucratic.score >= 90 || interactions.bureaucratic.issues < 2 || interactions.bureaucratic.renderedIssues !== interactions.bureaucratic.issues) addIssue(page.name, viewport.name, 'bureaucratic-analysis', interactions.bureaucratic);
         if (interactions.liveUpdate.words !== 2 || !interactions.liveUpdate.characters.startsWith('15 ') || interactions.liveUpdate.highlightedText !== 'Короткий текст.') addIssue(page.name, viewport.name, 'live-analysis', interactions.liveUpdate);
       } else if (page.interaction === 'course') {
-        if (!interactions.title || interactions.modules < 8 || !interactions.firstLesson.includes('lesson.html') || interactions.backLink !== '../../index.html#work') addIssue(page.name, viewport.name, 'course-demo', interactions);
+        const dialog = interactions.moduleDialog;
+        if (!interactions.title || interactions.modules < 8 || !interactions.firstLesson.includes('lesson.html') || interactions.backLink !== '../../index.html#work' || !dialog.open || !dialog.closed || !dialog.title || dialog.lessonLinks < 8 || !dialog.firstLesson.includes('lesson.html')) addIssue(page.name, viewport.name, 'course-demo', interactions);
       } else if (page.interaction === 'course-lesson') {
-        if (!interactions.title || interactions.title.includes('Загрузка') || interactions.navItems < 8 || interactions.theoryCards < 1 || !interactions.nextLesson.includes('lesson.html') || interactions.backLink !== '../../index.html#work') addIssue(page.name, viewport.name, 'course-lesson-demo', interactions);
+        if (!interactions.title || interactions.title.includes('Загрузка') || interactions.navItems < 8 || interactions.theoryCards < 1 || !interactions.nextLesson.includes('lesson.html') || interactions.backLink !== '../../index.html#work' || !interactions.checkpointOpen || !interactions.draftSaved || !interactions.lessonCompleted) addIssue(page.name, viewport.name, 'course-lesson-demo', interactions);
       } else if (page.interaction === 'hottour') {
         if (interactions.initialCards < 6 || interactions.filteredCards !== 3 || interactions.filterPressed !== 'true' || !interactions.modalOpen || !interactions.submitPrevented || !interactions.contactPrevented || !interactions.noticeVisible || interactions.backLink !== '../../index.html#work') addIssue(page.name, viewport.name, 'hottour-safe-demo', interactions);
       }

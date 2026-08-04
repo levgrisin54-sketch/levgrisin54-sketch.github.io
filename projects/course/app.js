@@ -795,7 +795,7 @@ function checkAnswer() {
   renderLabNav();
   $('answerStatus').textContent = 'Ответ проверен';
   feedback.className = 'feedback success visible';
-  feedback.innerHTML = '<b>Проверка пройдена ✓</b> Структура решения на месте. Открой разбор и сравни логику, допущения и точки контроля.';
+  feedback.innerHTML = '<b>Ответ принят ✓</b> Все обязательные пункты найдены. Открой разбор и сравни свой ответ с примером.';
 }
 
 function renderSyllabus() {
@@ -843,7 +843,7 @@ function openCourse(id) {
     </header>
     <div class="dialog-body">
       <section class="dialog-lessons">
-        ${primer ? `<article class="dialog-primer"><h3>Ментальная модель</h3><p>${primer.model}</p><div class="primer-flow">${primer.scheme.map((step) => `<span>${step}</span>`).join('<b>→</b>')}</div><h3>Мини-демо</h3><pre><code>${primer.demo}</code></pre><div class="primer-experiment"><b>ЭКСПЕРИМЕНТ</b><p>${primer.experiment}</p></div></article>` : ''}
+        ${primer ? `<article class="dialog-primer"><h3>Что важно запомнить</h3><p>${primer.model}</p><div class="primer-flow">${primer.scheme.map((step) => `<span>${step}</span>`).join('<b>→</b>')}</div><h3>Рабочий пример</h3><pre><code>${primer.demo}</code></pre><div class="primer-experiment"><b>ПОПРОБУЙ САМ</b><p>${primer.experiment}</p></div></article>` : ''}
         <h3>Отдельные уроки модуля</h3>
         <ol class="dialog-lesson-list">${course.lessons.map((lessonTitle, index) => {
           const detail = details[index];
@@ -853,8 +853,8 @@ function openCourse(id) {
         }).join('')}</ol>
       </section>
       <aside class="dialog-ready">
-        <div class="dialog-artifact"><span>АРТЕФАКТ В ПОРТФОЛИО</span><b>${course.artifact}</b></div>
-        <h3>Готов двигаться дальше, если:</h3>
+        <div class="dialog-artifact"><span>РЕЗУЛЬТАТ МОДУЛЯ</span><b>${course.artifact}</b></div>
+        <h3>Перед началом проверь:</h3>
         <ul>${course.ready.map((item) => `<li>${item}</li>`).join('')}</ul>
         <a class="dialog-primary-link" href="${nextHref}">${actionLabel} <span>→</span></a>
       </aside>
