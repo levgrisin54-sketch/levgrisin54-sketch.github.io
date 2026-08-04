@@ -70,6 +70,12 @@
           </div>
         </div>
 
+        <dl class="hero-proof" data-reveal>
+          <div><dt>3</dt><dd>работы можно открыть и проверить</dd></div>
+          <div><dt>320—1440 px</dt><dd>проверяю телефон, планшет и широкий экран</dd></div>
+          <div><dt>HTML · CSS · JS</dt><dd>понятная основа без лишних зависимостей</dd></div>
+        </dl>
+
         <div class="viewport-lab" data-reveal>
           <div class="lab-copy">
             <p class="kicker">Адаптивность</p>
@@ -119,7 +125,31 @@
           <p class="work-intro">Курс, каталог и текстовый инструмент работают прямо в браузере. Кнопки ведут на живые версии.</p>
         </div>
 
-        <article class="project project-course">
+        <nav class="work-index shell" aria-label="Быстрый выбор проекта" data-reveal>
+          <a class="work-card work-card-course" href="#course">
+            <span class="work-card-top"><b>01</b><span>Онлайн-курс</span></span>
+            <strong>Понятный старт</strong>
+            <span class="work-card-copy">80 уроков, задания и прогресс без регистрации.</span>
+            <span class="work-card-visual"><img src="assets/course-cover.jpg" alt="" width="1440" height="900" decoding="async" /></span>
+            <span class="work-card-link">Смотреть кейс <i aria-hidden="true">↓</i></span>
+          </a>
+          <a class="work-card work-card-hottour" href="#hottour">
+            <span class="work-card-top"><b>02</b><span>Каталог туров</span></span>
+            <strong>HotTour</strong>
+            <span class="work-card-copy">Фильтры, избранное и заявка через WhatsApp.</span>
+            <span class="work-card-visual"><img src="assets/hottour-cover.jpg" alt="" width="1440" height="900" decoding="async" /></span>
+            <span class="work-card-link">Смотреть кейс <i aria-hidden="true">↓</i></span>
+          </a>
+          <a class="work-card work-card-second-look" href="#second-look">
+            <span class="work-card-top"><b>03</b><span>Инструмент</span></span>
+            <strong>Second Look</strong>
+            <span class="work-card-copy">Проверка русского текста прямо в браузере.</span>
+            <span class="work-card-analyzer" aria-hidden="true"><b>92<small>/100</small></b><span><i></i><i></i><i></i></span></span>
+            <span class="work-card-link">Смотреть кейс <i aria-hidden="true">↓</i></span>
+          </a>
+        </nav>
+
+        <article class="project project-course" id="course">
           <div class="project-inner shell">
             <header class="project-top" data-reveal>
               <span>01 / образовательный сайт</span>
@@ -132,9 +162,15 @@
               </div>
               <p>Сайт курса по партнёрской работе в iGaming. Внутри 80 уроков, задания и прогресс, который сохраняется в браузере.</p>
             </div>
-            <div class="project-visual project-window" data-reveal>
-              <div class="window-bar"><span></span><span></span><span></span><b>курс / главная</b></div>
-              <img src="assets/course-cover.jpg" alt="Главная страница интерактивного курса «Понятный старт»" width="1440" height="900" />
+            <div class="project-scene project-scene-course" data-reveal>
+              <div class="project-visual project-window">
+                <div class="window-bar"><span></span><span></span><span></span><b>курс / главная</b></div>
+                <img src="assets/course-cover.jpg" alt="Главная страница интерактивного курса «Понятный старт»" width="1440" height="900" />
+              </div>
+              <div class="scene-notes" aria-label="Основные функции курса">
+                <div><span>Навигация</span><b>8 модулей</b><p>Уроки собраны в понятную последовательность.</p></div>
+                <div><span>Прогресс</span><b>Сохраняется</b><p>Можно вернуться и продолжить с нужного места.</p></div>
+              </div>
             </div>
             <div class="project-details">
               <div class="project-story" data-reveal>
@@ -155,7 +191,7 @@
           </div>
         </article>
 
-        <article class="project project-hottour">
+        <article class="project project-hottour" id="hottour">
           <div class="project-inner shell">
             <header class="project-top" data-reveal>
               <span>02 / сайт туристического бюро</span>
@@ -168,9 +204,15 @@
               </div>
               <p>Сайт туристического бюро Ульяны Аникеевой. В каталоге 15 отелей; варианты можно отфильтровать и добавить в избранное.</p>
             </div>
-            <div class="project-visual project-window" data-reveal>
-              <div class="window-bar"><span></span><span></span><span></span><b>туризм / широкий экран</b></div>
-              <img src="assets/hottour-cover.jpg" alt="Главная страница сайта туристического бюро Ульяны Аникеевой" width="1440" height="900" decoding="async" />
+            <div class="project-scene project-scene-hottour" data-reveal>
+              <div class="project-visual project-window">
+                <div class="window-bar"><span></span><span></span><span></span><b>туризм / широкий экран</b></div>
+                <img src="assets/hottour-cover.jpg" alt="Главная страница сайта туристического бюро Ульяны Аникеевой" width="1440" height="900" decoding="async" />
+              </div>
+              <div class="scene-notes" aria-label="Основные функции HotTour">
+                <div><span>Выбор</span><b>Фильтры</b><p>Каталог быстро сужается до подходящих вариантов.</p></div>
+                <div><span>Заявка</span><b>В WhatsApp</b><p>Выбранный отель и данные собираются на сайте.</p></div>
+              </div>
             </div>
             <div class="project-details">
               <div class="project-story" data-reveal>
@@ -189,7 +231,7 @@
           </div>
         </article>
 
-        <article class="project project-second-look">
+        <article class="project project-second-look" id="second-look">
           <div class="project-inner shell">
             <header class="project-top" data-reveal>
               <span>03 / инструмент для текста</span>
