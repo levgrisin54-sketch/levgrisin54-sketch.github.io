@@ -206,42 +206,10 @@ if (hero && finePointer.matches && !reduceMotion.matches) {
   });
 }
 
-const cardCursor = document.querySelector('.card-cursor');
 const projectWipe = document.querySelector('.project-wipe');
 const projectCards = [...document.querySelectorAll('[data-project-card]')];
-let cursorFrame = 0;
-let cursorTarget = { x: -120, y: -120 };
-let cursorPosition = { x: -120, y: -120 };
-let activeCard = null;
-
-const animateCardCursor = () => {
-  cursorPosition.x += (cursorTarget.x - cursorPosition.x) * .2;
-  cursorPosition.y += (cursorTarget.y - cursorPosition.y) * .2;
-  cardCursor.style.transform = `translate3d(${cursorPosition.x}px, ${cursorPosition.y}px, 0)`;
-  const moving = Math.abs(cursorTarget.x - cursorPosition.x) + Math.abs(cursorTarget.y - cursorPosition.y) > .2;
-  if (activeCard || moving) cursorFrame = requestAnimationFrame(animateCardCursor);
-  else cursorFrame = 0;
-};
-
-const hideCardCursor = () => {
-  activeCard?.classList.remove('is-pointer-active');
-  activeCard = null;
-  cardCursor?.classList.remove('is-visible');
-};
-
-if (cardCursor && finePointer.matches && !reduceMotion.matches) {
+if (finePointer.matches && !reduceMotion.matches) {
   projectCards.forEach(card => {
-    card.addEventListener('pointerenter', event => {
-      activeCard = card;
-      card.classList.add('is-pointer-active');
-      const styles = getComputedStyle(card);
-      cardCursor.style.setProperty('--cursor-bg', styles.getPropertyValue('--cursor-card-bg'));
-      cardCursor.style.setProperty('--cursor-fg', styles.getPropertyValue('--cursor-card-fg'));
-      cursorTarget = { x: event.clientX, y: event.clientY };
-      if (cursorPosition.x < -100) cursorPosition = { ...cursorTarget };
-      cardCursor.classList.add('is-visible');
-      if (!cursorFrame) cursorFrame = requestAnimationFrame(animateCardCursor);
-    });
     card.addEventListener('pointermove', event => {
       const rect = card.getBoundingClientRect();
       const x = clamp((event.clientX - rect.left) / rect.width, 0, 1);
@@ -252,7 +220,6 @@ if (cardCursor && finePointer.matches && !reduceMotion.matches) {
       card.style.setProperty('--tilt-y', `${(x - 0.5) * 5.2}deg`);
       card.style.setProperty('--image-x', `${(0.5 - x) * 7}px`);
       card.style.setProperty('--image-y', `${(0.5 - y) * 5}px`);
-      cursorTarget = { x: event.clientX, y: event.clientY };
     });
     card.addEventListener('pointerleave', () => {
       card.style.setProperty('--pointer-x', '50%');
@@ -261,10 +228,8 @@ if (cardCursor && finePointer.matches && !reduceMotion.matches) {
       card.style.setProperty('--tilt-y', '0deg');
       card.style.setProperty('--image-x', '0px');
       card.style.setProperty('--image-y', '0px');
-      hideCardCursor();
     });
   });
-  addEventListener('blur', hideCardCursor);
 }
 
 let wipeBusy = false;
@@ -275,7 +240,6 @@ projectCards.forEach(card => {
     if (!target) return;
     event.preventDefault();
     wipeBusy = true;
-    hideCardCursor();
     const rect = card.getBoundingClientRect();
     const originX = event.detail ? event.clientX : rect.left + rect.width / 2;
     const originY = event.detail ? event.clientY : rect.top + rect.height / 2;

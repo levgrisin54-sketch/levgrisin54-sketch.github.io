@@ -309,7 +309,8 @@ async function portfolioInteractions(viewport) {
       await wait(60);
       result.cardMotion = {
         supportsFinePointer,
-        cursorVisible: document.querySelector('.card-cursor').classList.contains('is-visible'),
+        nativeCursor: getComputedStyle(card).cursor,
+        customCursorRemoved: !document.querySelector('.card-cursor'),
         tilt: getComputedStyle(card).getPropertyValue('--tilt-y').trim(),
         pointerX: getComputedStyle(card).getPropertyValue('--pointer-x').trim()
       };
@@ -606,7 +607,7 @@ try {
         if (!interactions.demo.mode.includes('mode-mobile') || interactions.demo.label !== '320 px' || interactions.demo.pressed !== 'true' || interactions.demo.activeCount !== 1) addIssue(page.name, viewport.name, 'responsive-demo', interactions.demo);
         if (!viewport.mobile && (interactions.resizeControl.role !== 'slider' || interactions.resizeControl.value !== '1340' || !interactions.resizeControl.customMode || !interactions.resizeControl.widthChanged || interactions.resizeControl.activeCount !== 0)) addIssue(page.name, viewport.name, 'responsive-drag-control', interactions.resizeControl);
         if (!viewport.mobile && (interactions.pointerDrag.value >= 1400 || !interactions.pointerDrag.customMode || !interactions.pointerDrag.widthChanged || interactions.pointerDrag.dragging)) addIssue(page.name, viewport.name, 'responsive-pointer-drag', interactions.pointerDrag);
-        if (!viewport.mobile && interactions.cardMotion.supportsFinePointer && (!interactions.cardMotion.cursorVisible || interactions.cardMotion.tilt === '0deg' || interactions.cardMotion.pointerX === '50%')) addIssue(page.name, viewport.name, 'project-card-motion', interactions.cardMotion);
+        if (!viewport.mobile && interactions.cardMotion.supportsFinePointer && (interactions.cardMotion.nativeCursor !== 'pointer' || !interactions.cardMotion.customCursorRemoved || interactions.cardMotion.tilt === '0deg' || interactions.cardMotion.pointerX === '50%')) addIssue(page.name, viewport.name, 'project-card-motion', interactions.cardMotion);
         if (!viewport.mobile && (!interactions.wipe.started || !interactions.wipe.finished || interactions.wipe.target !== '#course')) addIssue(page.name, viewport.name, 'project-wipe', interactions.wipe);
         if (!viewport.mobile && (!interactions.scrollScene.active || !interactions.scrollScene.source.includes('course-page.webp') || interactions.scrollScene.position !== 'sticky' || !interactions.scrollScene.stickyAligned || interactions.scrollScene.progress < .6 || !interactions.scrollScene.movesForward || !interactions.scrollScene.meterVisible || interactions.scrollScene.assetBytes > 350000)) addIssue(page.name, viewport.name, 'project-scroll-scene', interactions.scrollScene);
         if (viewport.mobile && (interactions.scrollScene.active || !interactions.scrollScene.source.includes('course-cover.jpg') || interactions.scrollScene.position === 'sticky' || interactions.scrollScene.pageShift || interactions.scrollScene.meterVisible)) addIssue(page.name, viewport.name, 'mobile-project-scene', interactions.scrollScene);

@@ -72,10 +72,6 @@ img { max-width: 100%; display: block; }
 
 .scroll-progress { z-index: 120; position: fixed; inset: 0 0 auto; height: 4px; pointer-events: none; }
 .scroll-progress span { width: 100%; height: 100%; display: block; background: var(--orange); transform: scaleX(0); transform-origin: left; }
-.card-cursor { --cursor-bg: var(--lime); --cursor-fg: var(--ink); z-index: 460; position: fixed; top: 0; left: 0; width: 1px; height: 1px; pointer-events: none; opacity: 0; transform: translate3d(50vw, 50vh, 0); transition: opacity .18s ease; will-change: transform; }
-.card-cursor span { width: 86px; height: 86px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.28); border-radius: 50%; color: var(--cursor-fg); background: var(--cursor-bg); box-shadow: 0 18px 44px rgba(0,0,0,.22); font-size: 13px; font-weight: 750; transform: translate(-50%, -50%) scale(.72); transition: transform .32s var(--ease-out), background .2s ease, color .2s ease; }
-.card-cursor.is-visible { opacity: 1; }
-.card-cursor.is-visible span { transform: translate(-50%, -50%) scale(1); }
 .project-wipe { --wipe-x: 50vw; --wipe-y: 50vh; --wipe-color: var(--violet); z-index: 440; position: fixed; inset: 0; visibility: hidden; pointer-events: none; background: var(--wipe-color); clip-path: circle(0 at var(--wipe-x) var(--wipe-y)); }
 .project-wipe.is-covering { visibility: visible; clip-path: circle(160vmax at var(--wipe-x) var(--wipe-y)); transition: clip-path .52s var(--ease-out); }
 .project-wipe.is-revealing { visibility: visible; clip-path: circle(0 at var(--wipe-x) var(--wipe-y)); transition: clip-path .48s cubic-bezier(.65, 0, .35, 1); }
@@ -338,9 +334,7 @@ img { max-width: 100%; display: block; }
   .project-hottour .project-stats div:hover { background: rgba(21,23,20,.12); }
 }
 
-@media (hover: hover) and (pointer: fine) {
-  [data-project-card] { cursor: none; }
-}
+[data-project-card] { cursor: pointer; }
 
 :is(.button, .text-link, .project-link, .contact-link) > [aria-hidden="true"] { transition: transform .22s var(--ease-standard); }
 .project-scene[data-reveal] { transition: opacity .36s ease, box-shadow .3s ease; }
@@ -497,7 +491,7 @@ img { max-width: 100%; display: block; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   [data-reveal] { opacity: 1; transform: none; }
-  .card-cursor, .project-wipe { display: none; }
+  .project-wipe { display: none; }
   .hero::before { opacity: .45; }
   .project-scroll-stage { height: auto !important; }
   .project-scroll-stage .project-scene { position: relative !important; top: auto !important; }
