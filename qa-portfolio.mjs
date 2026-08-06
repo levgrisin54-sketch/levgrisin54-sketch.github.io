@@ -272,7 +272,7 @@ async function capture(filename) {
 }
 
 async function portfolioInteractions(viewport) {
-  return evaluate(`(async () => {
+  const result = await evaluate(`(async () => {
     const wait = milliseconds => new Promise(resolve => setTimeout(resolve, milliseconds));
     const mobileButton = document.querySelector('[data-viewport="mobile"]');
     mobileButton.click();
@@ -285,6 +285,45 @@ async function portfolioInteractions(viewport) {
     };
     document.querySelector('[data-viewport="desktop"]').click();
     const result = { demo };
+    if (!${viewport.mobile}) {
+      await wait(560);
+      const grip = document.querySelector('#lab-grip');
+      const widthBefore = document.querySelector('#responsive-demo').getBoundingClientRect().width;
+      grip.dispatchEvent(new KeyboardEvent('keydown', { key: 'PageDown', bubbles: true }));
+      await wait(560);
+      const widthAfter = document.querySelector('#responsive-demo').getBoundingClientRect().width;
+      result.resizeControl = {
+        role: grip.getAttribute('role'),
+        value: grip.getAttribute('aria-valuenow'),
+        customMode: document.querySelector('#responsive-demo').classList.contains('mode-custom'),
+        widthChanged: widthAfter < widthBefore,
+        activeCount: document.querySelectorAll('[data-viewport].is-active').length
+      };
+      grip.dispatchEvent(new KeyboardEvent('keydown', { key: 'End', bubbles: true }));
+
+      const card = document.querySelector('[data-project-card]');
+      const cardBox = card.getBoundingClientRect();
+      const supportsFinePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
+      card.dispatchEvent(new PointerEvent('pointerenter', { bubbles: false, pointerId: 31, pointerType: 'mouse', clientX: cardBox.left + cardBox.width * .25, clientY: cardBox.top + cardBox.height * .3 }));
+      card.dispatchEvent(new PointerEvent('pointermove', { bubbles: true, pointerId: 31, pointerType: 'mouse', clientX: cardBox.left + cardBox.width * .75, clientY: cardBox.top + cardBox.height * .65 }));
+      await wait(60);
+      result.cardMotion = {
+        supportsFinePointer,
+        cursorVisible: document.querySelector('.card-cursor').classList.contains('is-visible'),
+        tilt: getComputedStyle(card).getPropertyValue('--tilt-y').trim(),
+        pointerX: getComputedStyle(card).getPropertyValue('--pointer-x').trim()
+      };
+      card.dispatchEvent(new PointerEvent('pointerleave', { bubbles: false, pointerId: 31, pointerType: 'mouse' }));
+
+      card.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, button: 0, clientX: cardBox.left + cardBox.width / 2, clientY: cardBox.top + cardBox.height / 2 }));
+      await wait(80);
+      result.wipe = { started: document.querySelector('.project-wipe').classList.contains('is-covering') };
+      await wait(1000);
+      result.wipe.finished = !document.querySelector('.project-wipe').matches('.is-covering, .is-revealing');
+      result.wipe.target = location.hash;
+      history.replaceState(null, '', location.pathname + location.search);
+      scrollTo(0, 0);
+    }
     if (${viewport.mobile}) {
       const toggle = document.querySelector('.nav-toggle');
       toggle.click();
@@ -300,6 +339,46 @@ async function portfolioInteractions(viewport) {
       await wait(20);
       result.menu.outsideClickCloses = !document.body.classList.contains('nav-open');
     }
+
+    const scrollStage = document.querySelector('[data-project-scroll]');
+    const scrollScene = scrollStage.querySelector('.project-scene');
+    const scrollImage = scrollStage.querySelector('.project-page-shot');
+    const scrollMeter = scrollStage.querySelector('.window-scroll-meter');
+    if (!${viewport.mobile}) {
+      const previousScrollBehavior = document.documentElement.style.scrollBehavior;
+      document.documentElement.style.scrollBehavior = 'auto';
+      const stageTop = scrollStage.getBoundingClientRect().top + scrollY;
+      const stickyTop = Number.parseFloat(getComputedStyle(scrollScene).top) || 0;
+      const travel = scrollStage.offsetHeight - scrollScene.offsetHeight;
+      scrollTo(0, stageTop + travel * .24 - stickyTop);
+      await wait(90);
+      const firstShift = Number.parseFloat(scrollImage.style.getPropertyValue('--page-shift')) || 0;
+      scrollTo(0, stageTop + travel * .66 - stickyTop);
+      await wait(90);
+      const secondShift = Number.parseFloat(scrollImage.style.getPropertyValue('--page-shift')) || 0;
+      result.scrollScene = {
+        active: document.body.classList.contains('scroll-scenes-ready'),
+        source: scrollImage.currentSrc,
+        position: getComputedStyle(scrollScene).position,
+        stickyAligned: Math.abs(scrollScene.getBoundingClientRect().top - stickyTop) < 2,
+        progress: Number(scrollStage.dataset.scrollProgress),
+        firstShift,
+        secondShift,
+        movesForward: secondShift < firstShift - 40,
+        meterVisible: getComputedStyle(scrollMeter).display !== 'none',
+        assetBytes: performance.getEntriesByName(scrollImage.currentSrc)[0]?.transferSize || 0
+      };
+      document.documentElement.style.scrollBehavior = previousScrollBehavior;
+    } else {
+      result.scrollScene = {
+        active: document.body.classList.contains('scroll-scenes-ready'),
+        source: scrollImage.currentSrc,
+        position: getComputedStyle(scrollScene).position,
+        pageShift: scrollImage.style.getPropertyValue('--page-shift'),
+        meterVisible: getComputedStyle(scrollMeter).display !== 'none'
+      };
+    }
+
     scrollTo(0, Math.min(180, document.documentElement.scrollHeight - innerHeight));
     await wait(50);
     result.headerScrolled = document.querySelector('.site-header').classList.contains('is-scrolled');
@@ -307,6 +386,27 @@ async function portfolioInteractions(viewport) {
     result.projectLinks = [...document.querySelectorAll('.project-link[href]')].map(link => link.getAttribute('href'));
     return result;
   })()`);
+  if (!viewport.mobile) {
+    await wait(600);
+    const gripBefore = await evaluate(`(() => {
+      const grip = document.querySelector('#lab-grip').getBoundingClientRect();
+      const demo = document.querySelector('#responsive-demo').getBoundingClientRect();
+      return { x: grip.left + grip.width / 2, y: grip.top + grip.height / 2, width: demo.width };
+    })()`);
+    await client.send('Input.dispatchMouseEvent', { type: 'mousePressed', x: gripBefore.x, y: gripBefore.y, button: 'left', buttons: 1, clickCount: 1 });
+    await client.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: gripBefore.x - 84, y: gripBefore.y, button: 'left', buttons: 1 });
+    await client.send('Input.dispatchMouseEvent', { type: 'mouseReleased', x: gripBefore.x - 84, y: gripBefore.y, button: 'left', buttons: 0, clickCount: 1 });
+    await wait(80);
+    result.pointerDrag = await evaluate(`(() => ({
+      value: Number(document.querySelector('#lab-grip').getAttribute('aria-valuenow')),
+      customMode: document.querySelector('#responsive-demo').classList.contains('mode-custom'),
+      width: document.querySelector('#responsive-demo').getBoundingClientRect().width,
+      dragging: document.querySelector('#responsive-demo').classList.contains('is-dragging')
+    }))()`);
+    result.pointerDrag.widthChanged = result.pointerDrag.width < gripBefore.width - 20;
+    await evaluate(`document.querySelector('[data-viewport="desktop"]').click()`);
+  }
+  return result;
 }
 
 async function secondLookInteractions() {
@@ -504,6 +604,12 @@ try {
 
       if (page.interaction === 'portfolio') {
         if (!interactions.demo.mode.includes('mode-mobile') || interactions.demo.label !== '320 px' || interactions.demo.pressed !== 'true' || interactions.demo.activeCount !== 1) addIssue(page.name, viewport.name, 'responsive-demo', interactions.demo);
+        if (!viewport.mobile && (interactions.resizeControl.role !== 'slider' || interactions.resizeControl.value !== '1340' || !interactions.resizeControl.customMode || !interactions.resizeControl.widthChanged || interactions.resizeControl.activeCount !== 0)) addIssue(page.name, viewport.name, 'responsive-drag-control', interactions.resizeControl);
+        if (!viewport.mobile && (interactions.pointerDrag.value >= 1400 || !interactions.pointerDrag.customMode || !interactions.pointerDrag.widthChanged || interactions.pointerDrag.dragging)) addIssue(page.name, viewport.name, 'responsive-pointer-drag', interactions.pointerDrag);
+        if (!viewport.mobile && interactions.cardMotion.supportsFinePointer && (!interactions.cardMotion.cursorVisible || interactions.cardMotion.tilt === '0deg' || interactions.cardMotion.pointerX === '50%')) addIssue(page.name, viewport.name, 'project-card-motion', interactions.cardMotion);
+        if (!viewport.mobile && (!interactions.wipe.started || !interactions.wipe.finished || interactions.wipe.target !== '#course')) addIssue(page.name, viewport.name, 'project-wipe', interactions.wipe);
+        if (!viewport.mobile && (!interactions.scrollScene.active || !interactions.scrollScene.source.includes('course-page.webp') || interactions.scrollScene.position !== 'sticky' || !interactions.scrollScene.stickyAligned || interactions.scrollScene.progress < .6 || !interactions.scrollScene.movesForward || !interactions.scrollScene.meterVisible || interactions.scrollScene.assetBytes > 350000)) addIssue(page.name, viewport.name, 'project-scroll-scene', interactions.scrollScene);
+        if (viewport.mobile && (interactions.scrollScene.active || !interactions.scrollScene.source.includes('course-cover.jpg') || interactions.scrollScene.position === 'sticky' || interactions.scrollScene.pageShift || interactions.scrollScene.meterVisible)) addIssue(page.name, viewport.name, 'mobile-project-scene', interactions.scrollScene);
         if (viewport.mobile && (!interactions.menu.open || interactions.menu.expanded !== 'true' || !interactions.menu.insideViewport || !interactions.menu.outsideClickCloses)) addIssue(page.name, viewport.name, 'mobile-menu', interactions.menu);
         const requiredProjectLinks = ['projects/course/index.html', 'projects/hottour/index.html', 'second-look/index.html'];
         if (!interactions.headerScrolled || !requiredProjectLinks.every(href => interactions.projectLinks.includes(href))) addIssue(page.name, viewport.name, 'portfolio-navigation', interactions);
@@ -522,20 +628,38 @@ try {
       }
     }
 
-    await client.send('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 1, mobile: true, screenWidth: 390, screenHeight: 844 });
+    const reducedViewport = page.interaction === 'portfolio'
+      ? { width: 1440, height: 1000, mobile: false }
+      : { width: 390, height: 844, mobile: true };
+    await client.send('Emulation.setDeviceMetricsOverride', {
+      ...reducedViewport, deviceScaleFactor: 1,
+      screenWidth: reducedViewport.width, screenHeight: reducedViewport.height
+    });
     console.log(`qa:start ${page.name} reduced-motion`);
     await client.send('Emulation.setEmulatedMedia', { media: '', features: [{ name: 'prefers-reduced-motion', value: 'reduce' }] });
     await navigate(page.url);
     await settlePage();
-    const reduced = await evaluate(`(() => ({
-      preference: matchMedia('(prefers-reduced-motion: reduce)').matches,
-      runningAnimations: document.getAnimations().filter(animation => animation.playState === 'running').length,
-      hiddenReveals: ${JSON.stringify(page.revealSelector)} ? [...document.querySelectorAll(${JSON.stringify(page.revealSelector)})].filter(element => Number.parseFloat(getComputedStyle(element).opacity) < .99).length : 0,
-      overflowX: Math.max(0, document.documentElement.scrollWidth - innerWidth)
-    }))()`);
+    const reduced = await evaluate(`(() => {
+      const scrollScene = document.querySelector('[data-project-scroll]');
+      const scrollImage = scrollScene?.querySelector('.project-page-shot');
+      const meter = scrollScene?.querySelector('.window-scroll-meter');
+      return {
+        preference: matchMedia('(prefers-reduced-motion: reduce)').matches,
+        runningAnimations: document.getAnimations().filter(animation => animation.playState === 'running').length,
+        hiddenReveals: ${JSON.stringify(page.revealSelector)} ? [...document.querySelectorAll(${JSON.stringify(page.revealSelector)})].filter(element => Number.parseFloat(getComputedStyle(element).opacity) < .99).length : 0,
+        overflowX: Math.max(0, document.documentElement.scrollWidth - innerWidth),
+        scrollScene: scrollScene ? {
+          active: document.body.classList.contains('scroll-scenes-ready'),
+          source: scrollImage.currentSrc,
+          position: getComputedStyle(scrollScene.querySelector('.project-scene')).position,
+          meterVisible: getComputedStyle(meter).display !== 'none'
+        } : null
+      };
+    })()`);
     report.pages[page.name].reducedMotion = reduced;
     console.log(`qa:done ${page.name} reduced-motion`);
     if (!reduced.preference || reduced.runningAnimations || reduced.hiddenReveals || reduced.overflowX) addIssue(page.name, 'reduced-motion', 'reduced-motion', reduced);
+    if (page.interaction === 'portfolio' && (reduced.scrollScene.active || !reduced.scrollScene.source.includes('course-cover.jpg') || reduced.scrollScene.position === 'sticky' || reduced.scrollScene.meterVisible)) addIssue(page.name, 'reduced-motion', 'reduced-project-scene', reduced.scrollScene);
   }
 
   report.runtimeErrors = [...new Set(runtimeErrors)];
